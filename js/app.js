@@ -4,20 +4,34 @@
 
   const header = document.querySelector(".header");
   let lastScrollTop = 0;
+  const step = 150;
+  let isScrollingUp = false;
+  let scrollDistance = 0;
 
   function toggleHeader() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop) {
-      header.classList.add("scroll-down");
-      header.classList.remove("scroll-up");
+    let currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+    if (currentScroll > lastScrollTop) {
+      // Scrolling down
+      isScrollingUp = false;
+      scrollDistance = 0;
+      header.style.display = "none";
     } else {
-      header.classList.add("scroll-up");
-      header.classList.remove("scroll-down");
+      // Scrolling up
+      isScrollingUp = true;
+      scrollDistance += lastScrollTop - currentScroll;
     }
-    lastScrollTop = scrollTop;
+
+    if (isScrollingUp && scrollDistance > step) {
+      header.style.display = "block";
+    }
+
+    lastScrollTop = currentScroll;
   }
 
   window.addEventListener("scroll", toggleHeader);
+
+
 
 
   function isWebp() {

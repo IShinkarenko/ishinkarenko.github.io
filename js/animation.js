@@ -45,34 +45,35 @@ function platfortmAnimation() {
     const sectionItems = item.querySelector('.animated-section__items');
     const viewportHeight = window.innerHeight * 2.2;
 
-     const platformTimeline = gsap.timeline({
+    const platformTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: item,
         start: "top top",
         once: true,
         markers: true,
+        onEnter: scrollToTop
       },
     });
 
+    function scrollToTop() {
+      const itemTop = item.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: itemTop, behavior: 'smooth' });
+      document.body.style.overflow = 'hidden';
+    }
+
     platformTimeline
-      .to(".page-body", { overflow: 'hidden' })
       .to(sectionImg, { left: '50%', xPercent: -50, duration: 0.8, delay: 0.5 })
       .to(sectionInner, { width: '100vw', height: '100vh', duration: 0.8, delay: 0.5 }, 0)
-
-      .to(sectionImg, {  scale: 5, ease: ExpoScaleEase.config(1, 7), duration: 0.8 }, "+=0.2")
+      .to(sectionImg, { scale: 5, ease: ExpoScaleEase.config(1, 7), duration: 0.8 }, "+=0.2")
       .to(sectionImg, { autoAlpha: 0, duration: 0.7 }, "-=0.5")
       .to(sectionFullImg, { width: '100%', x: '0%', autoAlpha: 1, duration: 0.7, delay: 2.7 }, 0)
-
       .to(sectionTitle, { opacity: 0, duration: 0.7 }, "-=0.8")
-      .to(sectionInner, {  opacity:0, duration: 0.3, delay: 2.7 }, 0)
-
-      .to(sectionFullImg, { width: '50%', x: '50%',ease: "power0.out", duration: 0.7, delay: 2.7 }, 0)
-
+      .to(sectionInner, { opacity: 0, duration: 0.3, delay: 2.7 }, 0)
+      .to(sectionFullImg, { width: '50%', x: '50%', ease: "power0.out", duration: 0.7, delay: 2.7 }, 0)
       .to(sectionBody, { left: 0, duration: 0.7, ease: "power1.out", delay: 2.5 }, "-=3.4")
       .to(sectionBodyInner, { duration: 0.6, opacity: 1 }, "+=0.7")
       .to(sectionItems, { duration: 0.6, opacity: 1 }, "-=0.7")
       .to(".page-body", { overflow: 'auto' });
-
   });
 }
 
