@@ -73,6 +73,7 @@ function platfortmAnimation() {
       });
 
       platformTimeline
+        .to(".header", { autoAlpha: 0, duration: 0.5 })
         .to(sectionImg, { left: '50%', xPercent: -50, duration: 0.8, delay: 0.5 })
         .to(sectionInner, { width: '100vw', height: '100vh', duration: 0.8, delay: 0.5 }, 0)
         .to(sectionImg, { scale: 5, ease: ExpoScaleEase.config(1, 7), duration: 0.8 }, "+=0.2")
@@ -83,8 +84,9 @@ function platfortmAnimation() {
         .to(sectionFullImg, { width: '55%', x: '41%', ease: "power0.out", duration: 0.7, delay: 2.7 }, 0)
         .to(sectionBody, { left: 0, duration: 0.7, ease: "power1.out", delay: 2.5 }, "-=3.4")
         .to(sectionBodyInner, { duration: 0.4, opacity: 1 }, "+=0.7")
-      .to(sectionItems, { duration: 0.4, autoAlpha: 1 }, "-=0.4")
-      .to(".page-body", { overflow: 'auto' })
+        .to(sectionItems, { duration: 0.4, autoAlpha: 1 }, "-=0.4")
+        .to(".page-body", { overflow: 'auto' })
+        .to(".header", { autoAlpha: 1, duration: 0.5 }, "-=0.5")
     });
   });
 }
@@ -93,20 +95,20 @@ function platfortmAnimation() {
 function paralaxAnimation() {
   gsap.registerPlugin(ScrollTrigger);
 
-    let mm = gsap.matchMedia();
+  let mm = gsap.matchMedia();
 
   mm.add("(min-width: 992px)", () => {
 
-  gsap.utils.toArray(".feature-item-scroll").forEach((sectionGS, index) => {
-    ScrollTrigger.create({
-      trigger: sectionGS,
-      start: 'top top',
-      ...(index === 3 && { end: 'bottom bottom' }),
-      pin: true,
-      pinSpacing: false,
-      // markers: true,
+    gsap.utils.toArray(".feature-item-scroll").forEach((sectionGS, index) => {
+      ScrollTrigger.create({
+        trigger: sectionGS,
+        start: 'top top',
+        ...(index === 3 && { end: 'bottom bottom' }),
+        pin: true,
+        pinSpacing: false,
+        // markers: true,
+      });
     });
-  });
   });
 }
 
@@ -141,21 +143,26 @@ function bannerAnimation() {
   const bannerBottomClip = document.querySelector('.banner-clip.bottom');
   const bannerImage = document.querySelector('.banner img');
 
-  const bannerTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.banner',
-      start: "top center",
-      end: "bottom bottom",
-      scrub: 1,
-      // markers: true,
-      once: true,
-    },
-  });
 
-  bannerTimeline
-    .to(bannerTopClip, { xPercent: -100, duration: 1.5 })
-    .to(bannerBottomClip, { xPercent: 100, duration: 1.5 }, 0)
-    .to(bannerImage, { scale: 1, duration: 1 }, 0)
+  let mm = gsap.matchMedia();
+
+  mm.add("(min-width: 992px)", () => {
+    const bannerTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.banner',
+        start: "top center",
+        end: "bottom bottom",
+        scrub: 1,
+        // markers: true,
+        once: true,
+      },
+    });
+
+    bannerTimeline
+      .to(bannerTopClip, { xPercent: -100, duration: 1.5 })
+      .to(bannerBottomClip, { xPercent: 100, duration: 1.5 }, 0)
+      .to(bannerImage, { scale: 1, duration: 1 }, 0)
+  });
 }
 
 
