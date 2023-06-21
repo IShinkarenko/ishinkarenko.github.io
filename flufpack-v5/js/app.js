@@ -137,11 +137,15 @@ window.addEventListener("load", function () {
             .then((response) => response.text())
             .then((response) => {
               const responseText = JSON.parse(response);
+
               if (responseText.error !== "") {
-                alert(responseText.error);
+                document.querySelector("#alert").innerText = responseText.error
+                document.querySelector("#alert").classList.add("error")
                 return;
               }
-              alert(responseText.success);
+
+              document.querySelector("#alert").innerText = responseText.success
+              document.querySelector("#alert").classList.add("success")
             });
         });
       }, 1000); // Adjust the timeout value as needed

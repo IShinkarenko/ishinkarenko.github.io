@@ -499,6 +499,23 @@ textarea.input {
     display:none;
 }
 
+#alert {
+  color: #fff;
+  text-align: center;
+  margin-top: 32px;
+  font-size: 25px;
+  padding: 14px;
+  border-radius: 15px;
+}
+
+#alert.success {
+  background-color: #23a723;
+}
+
+#alert.error {
+  background-color: #FF0000;
+}
+
 .header {
   background-color: #FFD439;
   position: fixed;
