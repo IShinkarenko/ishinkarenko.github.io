@@ -125,7 +125,7 @@ window.addEventListener("load", function () {
         })
         .then(function (token) {
           let recaptchaResponse = document.getElementById("recaptchaResponse");
-          console.log(first)
+          console.log(recaptchaResponse)
           recaptchaResponse.value = token;
 
           fetch("/send.php", {
