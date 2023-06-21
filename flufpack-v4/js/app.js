@@ -121,11 +121,11 @@ window.addEventListener("load", function () {
     grecaptcha.ready(function () {
       grecaptcha
         .execute("6Lc2-LcmAAAAAGYp-YAKJjlcyoMeNlzjdBuzZ-YB", { // site key
-          action: "contact",
+          action: "submit",
         })
         .then(function (token) {
           let recaptchaResponse = document.getElementById("recaptchaResponse");
-          console.log(recaptchaResponse)
+          console.log({token})
           recaptchaResponse.value = token;
 
           fetch("/send.php", {
