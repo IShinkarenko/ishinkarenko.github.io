@@ -11,10 +11,10 @@ function welcomAnimation() {
   welcomeTimeLine.to(introContainer, { opacity: 1, duration: 2 })
     .fromTo(
       logoLine,
-      { strokeDasharray: "0 318", strokeDashoffset: "318" },
+      { strokeDasharray: "0 180", strokeDashoffset: "180" },
       {
-        strokeDasharray: "318 0",
-        strokeDashoffset: "0 318",
+        strokeDasharray: "180 0",
+        strokeDashoffset: "0 180",
         duration: 1.5,
         ease: "power0.out",
         onComplete: function () {
@@ -37,57 +37,90 @@ function welcomAnimation() {
 function platfortmAnimation() {
   gsap.registerPlugin(ScrollTrigger);
 
-  let mm = gsap.matchMedia();
 
-  mm.add("(min-width: 992px)", () => {
-    const allAnimations = gsap.utils.toArray(".animated-section");
+  ScrollTrigger.matchMedia({
+    "(min-width: 992px)": function () {
+      const allAnimations = gsap.utils.toArray(".animated-section");
 
-    allAnimations.forEach((item) => {
-      const sectionImg = item.querySelector('.animated-section__img');
-      const sectionFullImg = item.querySelector('.full-image');
-      const sectionInner = item.querySelector('.animated-section__box');
-      const sectionTitle = item.querySelector('.animated-section__title');
-      const sectionBody = item.querySelector('.animated-section__body');
-      const sectionBodyInner = item.querySelector('.animated-section__body-inner');
-      const sectionItems = item.querySelector('.animated-section__items');
+      allAnimations.forEach((item) => {
+        const sectionImg = item.querySelector('.animated-section__img');
+        const sectionFullImg = item.querySelector('.full-image');
+        const sectionInner = item.querySelector('.animated-section__box');
+        const sectionTitle = item.querySelector('.animated-section__title');
+        const sectionBody = item.querySelector('.animated-section__body');
+        const sectionBodyInner = item.querySelector('.animated-section__body-inner');
+        const sectionItems = item.querySelector('.animated-section__items');
 
-      const platformTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: item,
-          start: "top top",
-          end: "top top-=2500",
-          once: true,
-          // markers: true,
-          scrub: 1,
-          pin: item,
-          anticipatePin: 1,
-          onLeave: function (self) {
-            let start = self.start;
-            self.scroll(self.start);
-            self.disable();
-            self.animation.progress(1, true);
-            ScrollTrigger.refresh();
-            window.scrollTo(0, start);
-          }
-        },
+        const platformTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: "top top",
+            end: "top top-=2500",
+            once: true,
+            // markers: true,
+            scrub: 1,
+            pin: item,
+            anticipatePin: 1,
+            onLeave: function (self) {
+              let start = self.start;
+              self.scroll(self.start);
+              self.disable();
+              self.animation.progress(1, true);
+              ScrollTrigger.refresh();
+              window.scrollTo(0, start);
+            }
+          },
+        });
+
+        platformTimeline
+          .to(".header", { autoAlpha: 0, duration: 0.5 })
+          .to(sectionImg, { left: '50%', xPercent: -50, duration: 0.8, delay: 0.5 })
+          .to(sectionInner, { width: '100vw', height: '100vh', duration: 0.8, delay: 0.5 }, 0)
+          .to(sectionImg, { scale: 5, ease: ExpoScaleEase.config(1, 7), duration: 0.8 }, "+=0.2")
+          .to(sectionImg, { autoAlpha: 0, duration: 0.7 }, "-=0.5")
+          .to(sectionFullImg, { width: '100%', x: '0%', autoAlpha: 1, duration: 0.7, delay: 2.7 }, 0)
+          .to(sectionTitle, { opacity: 0, duration: 0.7 }, "-=0.8")
+          .to(sectionInner, { opacity: 0, duration: 0.3, delay: 2.7 }, 0)
+          .to(sectionFullImg, { width: '55%', x: '41%', ease: "power0.out", duration: 0.7, delay: 2.7 }, 0)
+          .to(sectionBody, { left: 0, duration: 0.7, ease: "power1.out", delay: 2.5 }, "-=3.4")
+          .to(sectionBodyInner, { duration: 0.4, opacity: 1 }, "+=0.7")
+          .to(sectionItems, { duration: 0.4, autoAlpha: 1 }, "-=0.4")
+          .to(".page-body", { overflow: 'auto' })
+          .to(".header", { autoAlpha: 1, duration: 0.5 }, "-=0.5")
+      });
+    },
+
+    "(max-width: 991px)": function () {
+      const allAnimations = gsap.utils.toArray(".animated-section");
+
+
+      allAnimations.forEach((item) => {
+        const sectionTitle = item.querySelector('.animated-section__title');
+        const sectionImg = item.querySelector('.animated-section__img');
+        const sectionSubTitle = item.querySelector('.animated-section__body-title-mobile');
+        const sectionItems = item.querySelector('.content-right-item-2__items');
+        // const featuresIcons = item.querySelector('.profile-flufpack__items');
+        // const featuresItem = item.querySelector('.feature-item-scroll');
+
+        const platformTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: "top bottom",
+            end: "bottom bottom+=300",
+            scrub: 1,
+            markers: true,
+            once: true,
+          },
+        });
+
+        platformTimeline
+          .fromTo(sectionTitle, { autoAlpha: 0, yPercent: 100 }, { autoAlpha: 1, yPercent: 0, duration: 0.9 })
+          .fromTo(sectionImg, { autoAlpha: 0, yPercent: 100 }, { autoAlpha: 1, yPercent: 0, duration: 0.9 }, "-=0.3")
+          .fromTo(sectionSubTitle, { autoAlpha: 0, yPercent: 100 }, { autoAlpha: 1, yPercent: 0, duration: 0.9 }, "-=0.3")
+          .fromTo(sectionItems, { autoAlpha: 0, yPercent: 100 }, { autoAlpha: 1, yPercent: 0, duration: 0.9 }, "-=0.3")
       });
 
-      platformTimeline
-        .to(".header", { autoAlpha: 0, duration: 0.5 })
-        .to(sectionImg, { left: '50%', xPercent: -50, duration: 0.8, delay: 0.5 })
-        .to(sectionInner, { width: '100vw', height: '100vh', duration: 0.8, delay: 0.5 }, 0)
-        .to(sectionImg, { scale: 5, ease: ExpoScaleEase.config(1, 7), duration: 0.8 }, "+=0.2")
-        .to(sectionImg, { autoAlpha: 0, duration: 0.7 }, "-=0.5")
-        .to(sectionFullImg, { width: '100%', x: '0%', autoAlpha: 1, duration: 0.7, delay: 2.7 }, 0)
-        .to(sectionTitle, { opacity: 0, duration: 0.7 }, "-=0.8")
-        .to(sectionInner, { opacity: 0, duration: 0.3, delay: 2.7 }, 0)
-        .to(sectionFullImg, { width: '55%', x: '41%', ease: "power0.out", duration: 0.7, delay: 2.7 }, 0)
-        .to(sectionBody, { left: 0, duration: 0.7, ease: "power1.out", delay: 2.5 }, "-=3.4")
-        .to(sectionBodyInner, { duration: 0.4, opacity: 1 }, "+=0.7")
-        .to(sectionItems, { duration: 0.4, autoAlpha: 1 }, "-=0.4")
-        .to(".page-body", { overflow: 'auto' })
-        .to(".header", { autoAlpha: 1, duration: 0.5 }, "-=0.5")
-    });
+    }
   });
 }
 
@@ -95,21 +128,62 @@ function platfortmAnimation() {
 function paralaxAnimation() {
   gsap.registerPlugin(ScrollTrigger);
 
-  let mm = gsap.matchMedia();
+  // let mm = gsap.matchMedia();
 
-  mm.add("(min-width: 992px)", () => {
+  // mm.add("(min-width: 992px)", () => {
 
-    gsap.utils.toArray(".feature-item-scroll").forEach((sectionGS, index) => {
-      ScrollTrigger.create({
-        trigger: sectionGS,
-        start: 'top top',
-        ...(index === 3 && { end: 'bottom bottom' }),
-        pin: true,
-        pinSpacing: false,
-        // markers: true,
+  //   gsap.utils.toArray(".feature-item-scroll").forEach((sectionGS, index) => {
+  //     ScrollTrigger.create({
+  //       trigger: sectionGS,
+  //       start: 'top top',
+  //       ...(index === 3 && { end: 'bottom bottom' }),
+  //       pin: true,
+  //       pinSpacing: false,
+  //       // markers: true,
+  //     });
+  //   });
+  // });
+
+  ScrollTrigger.matchMedia({
+    "(min-width: 992px)": function () {
+      gsap.utils.toArray(".feature-item-scroll").forEach((sectionGS, index) => {
+        ScrollTrigger.create({
+          trigger: sectionGS,
+          start: 'top top',
+          ...(index === 3 && { end: 'bottom bottom' }),
+          pin: true,
+          pinSpacing: false,
+          // markers: true,
+        });
       });
-    });
-  });
+    },
+
+    "(max-width: 991px)": function () {
+       const allAnimations = gsap.utils.toArray(".feature-item");
+
+      allAnimations.forEach((item) => {
+        const featuresIcons = item.querySelector('.feature-item-title');
+        const featuresImage = item.querySelector('.feature-item-scroll');
+
+
+
+        const platformTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: "top bottom",
+            end: "bottom bottom+=300",
+            scrub: 1,
+            markers: true,
+            once: true,
+          },
+        });
+
+        platformTimeline
+          .fromTo(featuresIcons, { autoAlpha: 0, yPercent: 100 }, { autoAlpha: 1, yPercent: 0, duration: 0.9 })
+          .fromTo(featuresImage, { autoAlpha: 0, yPercent: 100 }, { autoAlpha: 1, yPercent: 0, duration: 0.9 }, "-=0.3")
+      })
+    }
+  })
 }
 
 
@@ -146,7 +220,6 @@ function bannerAnimation() {
 
   let mm = gsap.matchMedia();
 
-  mm.add("(min-width: 992px)", () => {
     const bannerTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: '.banner',
@@ -162,7 +235,7 @@ function bannerAnimation() {
       .to(bannerTopClip, { xPercent: -100, duration: 1.5 })
       .to(bannerBottomClip, { xPercent: 100, duration: 1.5 }, 0)
       .to(bannerImage, { scale: 1, duration: 1 }, 0)
-  });
+
 }
 
 

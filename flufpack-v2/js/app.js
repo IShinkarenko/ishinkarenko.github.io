@@ -30,7 +30,19 @@
     lastScrollTop = currentScroll;
   }
 
-  window.addEventListener("scroll", toggleHeader);
+  let widthMatch = window.matchMedia("(min-width: 992px)");
+
+  if (widthMatch.matches) {
+    window.addEventListener("scroll", toggleHeader);
+  }
+
+  widthMatch.addEventListener('change', function (mm) {
+    if (mm.matches) {
+      window.addEventListener("scroll", toggleHeader);
+    }
+  });
+
+
 
   // open/close menu
   let bodyLockStatus = true;
@@ -81,7 +93,7 @@
 
   function menuInit() {
     if (document.querySelector(".icon-menu")) document.addEventListener("click", (function (e) {
-      if ( e.target.closest(".icon-menu")) {
+      if (e.target.closest(".icon-menu")) {
         bodyLockToggle();
         document.documentElement.classList.toggle("menu-open");
       }
@@ -92,9 +104,45 @@
 
 
 if (history.scrollRestoration) {
-    history.scrollRestoration = 'manual';
+  history.scrollRestoration = 'manual';
 } else {
-    window.onbeforeunload = function () {
-        window.scrollTo(0, 0);
-    }
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  }
 }
+
+
+window.addEventListener("load", function () {
+  const form = document.getElementById("contact-form");
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    grecaptcha.ready(function () {
+      grecaptcha
+        .execute("6Lc2-LcmAAAAAGYp-YAKJjlcyoMeNlzjdBuzZ-YB", {
+          action: "contact",
+        })
+        .then(function (token) {
+          let recaptchaResponse = document.getElementById("recaptchaResponse");
+          recaptchaResponse.value = token;
+
+          fetch("/send.php", {
+            method: "POST",
+            body: new FormData(form),
+          })
+            .then((response) => response.text())
+            .then((response) => {
+              const responseText = JSON.parse(response);
+              if (responseText.error !== "") {
+                alert(responseText.error);
+                return;
+              }
+              alert(responseText.success);
+            });
+        });
+    });
+  });
+});
+
+

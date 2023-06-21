@@ -76,6 +76,7 @@ body {
   background-color: #0B1217;
 }
 
+
 .lock body {
   overflow: hidden !important;
   -ms-touch-action: none;
@@ -496,6 +497,12 @@ textarea.input {
   z-index: 50;
   width: 100%;
   transition: all .3s ease;
+}
+
+@media (max-width: 991.98px) {
+  .header {
+    position: relative;
+  }
 }
 
 .header.scroll-down {
@@ -1051,8 +1058,24 @@ textarea.input {
 }
 
 .pets__content .red {
-  color: #E80E0E
+  color: #E80E0E;
+  display: inline-block;
 }
+
+@media (max-width: 991.98px) {
+  .pets__content .red {
+    -webkit-animation-name: anim-puls-word;
+    animation-name: anim-puls-word;
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+  }
+}
+
+
 
 .pets__text {
   position: relative;
@@ -5332,6 +5355,7 @@ textarea.input {
   z-index: 1;
 }
 
+
 .banner-clip.top {
   top: 0;
 }
@@ -5433,7 +5457,7 @@ textarea.input {
 
   .main-block {
     padding-top: 180px;
-    padding: 135px 0 32px 0;
+    padding: 55px 0 32px 0;
     height: inherit;
   }
 
@@ -5447,7 +5471,7 @@ textarea.input {
     background-color: #0B1217;
     z-index: 2;
     left: 0;
-    top: 75px;
+    top: 1px;
   }
 
   .main-block::after {
@@ -5458,7 +5482,7 @@ textarea.input {
     background-color: #FFD439;
     z-index: 1;
     left: 0;
-    top: 75px;
+    top: 0;
   }
 
   .body-main-block__title {
@@ -5944,8 +5968,21 @@ textarea.input {
   }
 
   .welcome__logo {
-    width: 180px;
+    width: 190px;
     padding: 0;
+  }
+
+  .welcome__logo-line {
+    width: 220px;;
+  }
+
+  .welcome__logo-line rect {
+    width: 213px;
+    height: 80px;
+  }
+
+  .welcome__logo-wrapper {
+    margin-top: 10px;
   }
 
   .pets__content {

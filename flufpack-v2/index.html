@@ -11,6 +11,10 @@
   <link rel="shortcut icon" href="favicon.ico">
   <!-- <meta name="robots" content="noindex, nofollow"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lc2-LcmAAAAAGYp-YAKJjlcyoMeNlzjdBuzZ-YB"></script>
+
 </head>
 
 <body class="page-body" onload="window.scrollTo(0, 0);">
@@ -649,20 +653,20 @@
       <section class="page__tunned tunned">
         <div class="tunned__container">
           <h2 data-watch-threshold="0.4" data-watch data-watch-once class="tunned__title">Stay tunned!</h2>
-          <form action="#" method="POST" class="tunned__form form-tunned">
+          <form id="contact-form" data-recapture-key=6LeuCTQmAAAAAGKOR-eqneLiGQuNaIyJF7856UCH method=”POST” class="tunned__form form-tunned">
             <div class="form-tunned__items">
-              <input type="text" name="form[fist-name]" placeholder="Fist name" class="form-tunned__input input">
-              <input type="text" name="last-name" placeholder="Last name" class="form-tunned__input input">
+              <input required type="text" name="fistName" placeholder="Fist name" class="form-tunned__input input">
+              <input required type="text" name="lastName" placeholder="Last name" class="form-tunned__input input">
             </div>
             <div class="form-tunned__line">
-              <input type="text" name="form[email-address]" placeholder="Email Address"
+              <input required type="text" name="email" placeholder="Email Address"
                 class="form-tunned__input input">
             </div>
             <div class="form-tunned__line">
-              <input type="tel" name="form[phone]" placeholder="Phone" class="form-tunned__input input">
+              <input required type="tel" name="phone" placeholder="Phone" class="form-tunned__input input">
             </div>
             <div class="form-tunned__line">
-              <input type="text" name="form[company-name]" placeholder="Company name" class="form-tunned__input input">
+              <input required type="text" name="companyName" placeholder="Company name" class="form-tunned__input input">
             </div>
             <div class="form-tunned__line">
               <textarea name="note" placeholder="Note" class="form-tunned__input input"></textarea>
@@ -671,6 +675,8 @@
               <input id="c_1" class="checkbox__input" type="checkbox" value="1" name="form[robot]">
               <label for="c_1" class="checkbox__label"><span class="checkbox__text">I’m not a robot</span></label>
             </div>
+
+
             <button type="submit" class="form-tunned__button">Submit</button>
           </form>
           <div data-goto=".wrapper" class="tunned__top top-tunned">
@@ -703,6 +709,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/EasePack.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
+
 </body>
 
 </html>
