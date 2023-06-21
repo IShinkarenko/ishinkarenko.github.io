@@ -121,7 +121,7 @@ window.addEventListener("load", function () {
     grecaptcha.ready(function () {
       setTimeout(function () {
       grecaptcha
-        .execute("6Lc2-LcmAAAAAGYp-YAKJjlcyoMeNlzjdBuzZ-YB", { // site key
+        .execute("6LeuCTQmAAAAAGKOR-eqneLiGQuNaIyJF7856UCH", { // site key
           action: "submit",
         })
         .then(function (token) {

@@ -25,13 +25,13 @@ $error_output = '';
 
 if (isValid()) {
     $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; // URL to the reCAPTCHA server
-    $recaptcha_secret = '6Lc2-LcmAAAAAAOZDJBRnN83xqGxzZow2Ot5oBAi'; // Secret key
+    $recaptcha_secret = '6LeuCTQmAAAAALZiHQTC-Ssk8Tn6wA-FBDNK749b'; // Secret key
     $recaptcha_response = $_POST['recaptchaResponse']; // Response from reCAPTCHA server, added to the form during processing
     $recaptcha = file_get_contents($recaptcha_url.'?secret='.$recaptcha_secret.'&response='.$recaptcha_response); // Send request to the server
     $recaptcha = json_decode($recaptcha); // Decode the JSON response
     if($recaptcha->success == true && $recaptcha->score >= 0.5 && $recaptcha->action == "contact"){ // If the response is valid
         // run email send to  info@flufpack.com
-        $to = 'ivan.shunkarenko@gmail.com';
+        $to = 'info@flufpack.com';
         $subject = 'New message from Flufpack.com';
         $message = 'First Name: ' . $_POST['fistName'] . "\r\n\r\n";
         $message .= 'Last Name: ' . $_POST['lastName'] . "\r\n\r\n";
